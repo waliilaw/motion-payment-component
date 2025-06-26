@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
+    "@types/canvas-confetti": "^1.9.0",
+    "canvas-confetti": "^1.9.3",
     "motion": "^12.19.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-tsparticles": "^2.12.2",
+    "shadcn": "^2.7.0",
     "tailwindcss": "^4.1.11",
     "tsparticles": "^3.8.1",
     "tsparticles-slim": "^2.12.0"

@@ -1,10 +1,12 @@
 import { motion, useAnimate } from "motion/react"
+import { fireConfetti } from "./magicui/confetti"
+import { useRef } from "react"
 
 export const AnimatedSequences =  () => {
     const [scope, animate] = useAnimate()
+    const buttonRef = useRef<HTMLButtonElement>(null)
     
     const startAnimating = async () => {
-        // Show loader first
         await animate(
             ".loader",
             {
@@ -17,8 +19,6 @@ export const AnimatedSequences =  () => {
                 repeat: 1
             }
         )
-        
-        // Then start the button animation sequence
         await animate(
             ".button-text",
             {
@@ -48,19 +48,17 @@ export const AnimatedSequences =  () => {
             }
         )
         
-        // Hide the spinning circle
         await animate(
             ".spinning-circle",
             {
                 opacity: 1,
-                scale: 1,
+                scale: 1.02,
             },
             {
                 duration: 0.3
             }
         )
 
-        // Show and animate the check mark
         await animate(
             ".check-icon",
             {
@@ -79,15 +77,21 @@ export const AnimatedSequences =  () => {
             {
                 duration: 0.3
             }
-        ) 
+        )
+
+        // Fire confetti after check mark
+        if (buttonRef.current) {
+            await fireConfetti(buttonRef.current)
+        }
     }
 
     return (
         <div ref={scope} className="relative" onClick={startAnimating}>
             <motion.button 
+                ref={buttonRef}
                 className="relative h-20 w-60 rounded-full bg-gradient-to-r from-neutral-300 via-neutral-300 to-neutral-300 font-medium cursor-pointer border-b-2 "
             >
-                <span className="button-text flex items-center justify-center gap-2 pl-5 font-bold text-[1.2rem]">
+                <span className="button-text flex items-center justify-center gap-2 pl-5 font-bold text-[1.4rem]">
                     Purchase Now
                     <motion.svg 
                         className="loader h-4 w-4"
@@ -110,13 +114,13 @@ export const AnimatedSequences =  () => {
                     viewBox="0 0 24 24"
                     stroke="#FFFFFF"
                     strokeWidth={3}
-                    className="check-icon h-8 w-8 absolute inset-0 m-auto z-50 pointer-events-none"
+                    className="check-icon h-8 w-8 absolute inset-0 m-auto z-50 pointer-events-none "
                     style={{ opacity: 0 }}
                 >
                     <motion.path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M5 13l4 4l9-14"
+                        d="M5 13l4 4l11-14"
                         initial={{ pathLength: 0 }}
                     />
                 </motion.svg>
